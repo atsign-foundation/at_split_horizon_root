@@ -21,7 +21,7 @@ void main() async {
       var send = utf8.encode("@");
       connection.add(send);
       connection.listen((Uint8List data) async {
-        final message = String.fromCharCodes(data);
+        final message = utf8.decode(data);
         if (message.trim() == '' || message.length > 257) {
           connection.destroy();
         }
