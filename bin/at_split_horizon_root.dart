@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:at_lookup/at_lookup.dart';
 import 'package:hive/hive.dart';
 
-
 void main() async {
   var box = await Hive.openBox('rootBox', path: './');
 
@@ -23,12 +22,12 @@ void main() async {
       connection.add(send);
       connection.listen((Uint8List data) async {
         final message = String.fromCharCodes(data);
-        if (message.trim() == '' || message.length>257) {
+        if (message.trim() == '' || message.length > 257) {
           connection.destroy();
         }
         var stuff = box.get(message.trim());
         if (stuff == null) {
-          connection.writeln(await rootLookup(message));
+          connection.writeln(await rootLookup(message.trim()));
         } else {
           connection.writeln(stuff);
         }
@@ -45,7 +44,7 @@ Future<String> rootLookup(String atsign) async {
   var atLookupImpl = AtLookupImpl('', 'root.atsign.org', 64);
   SecondaryAddress secondaryAddress;
   SecondaryAddressFinder secondaryAddressFinder;
-
+  print(">$atsign<");
   try {
     secondaryAddressFinder = atLookupImpl.secondaryAddressFinder;
 
@@ -57,17 +56,14 @@ Future<String> rootLookup(String atsign) async {
   return ('${secondaryAddress.host}:${secondaryAddress.port}');
 }
 
-
 /// TODO  Catch SIGHUP and reload DB for updates to file
 /// Find out why we need dummy data else the first put does not work ??
-/// 
+///
 Future<void> loadBox(Box box) async {
-  box.clear();
+  await box.clear();
   File file = File('./atServers');
 
   List<String> lines = file.readAsLinesSync();
-  // Why is this needed ?
-  await box.put('dummy', 'data');
   try {
     for (var line in lines) {
       var atsign = line.split(RegExp(r'\s+'));
@@ -75,7 +71,8 @@ Future<void> loadBox(Box box) async {
     }
   } catch (e) {
     print(e.toString());
-    print('Format error in etc/atsigns file');
+    print('Format error in atsigns file');
+    await box.close();
     exit(-1);
   }
 }
