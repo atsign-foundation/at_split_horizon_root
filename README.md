@@ -55,7 +55,7 @@ This would allow shrd to give the answer 'cally.lan:6464' to a lookup of 'colin'
 
 ### Updating the atServers file whilst shrd is running
 
-The shrd daemon will respond to a 'kill -SIGHUP' by re-reading the configuration file, this allows new atSigns to be added or reoved without taking down the server. Note however that the whole database is first cleared before updating so for a brief period of time 'null' maybe returned for a valid lookup. This may be addressed in updates, please raise an issue if this causes you concern or problems.
+The shrd daemon will respond to a 'kill -SIGHUP' by re-reading the configuration file, this allows new atSigns to be added or removed without taking down the server. Note however that the whole database is first cleared before updating so for a brief period of time 'null' maybe returned for a valid lookup. This may be addressed in updates, please raise an issue if this causes you concern or problems.
 
 ## Who is this tool for?
 
