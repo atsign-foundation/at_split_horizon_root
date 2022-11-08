@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:at_commons/at_commons.dart';
 import 'package:at_lookup/at_lookup.dart';
 import 'package:hive/hive.dart';
 
@@ -10,12 +11,19 @@ void main() async {
 
   await loadBox(box);
 
+  // re-load hiveDB if we see a SIGHUP
+  ProcessSignal.sighup.watch().listen((signal) async {
+    await loadBox(box);
+    print('reloadingbox');
+  });
+
   var secCon = SecurityContext();
   secCon.useCertificateChain('fullchain.pem');
   secCon.usePrivateKey('privkey.pem');
   secCon.setTrustedCertificates('cacert.pem');
 
-  await SecureServerSocket.bind(InternetAddress.anyIPv4, 64, secCon, requestClientCertificate: false)
+  await SecureServerSocket.bind(InternetAddress.anyIPv4, 64, secCon,
+          requestClientCertificate: false)
       .then((SecureServerSocket secSocket) {
     secSocket.listen((connection) {
       var send = utf8.encode("@");
