@@ -3,7 +3,7 @@
 # at_Split_Horizon_Root aka shrd
 
 TLDR;
-Some times you might want to runn your own atDirectory (root server), perhaps your network is not connected to the Internet or maybe Internet access is not always available.
+Some times you might want to run your own atDirectory (root server), perhaps your network is not connected to the Internet or maybe Internet access is not always available.
 If that is the case, shrd is the solution. Your atPlatform code can point at the shrd and it will answer with your atServers locations on your network. If the atSign being looked up is not in your config then it will be forwarded to the Internet and resolved, if the Internet is not available then the lookup will fail sending back a 'null'.
 
 ## Why is this called Split Horizon Root ?
