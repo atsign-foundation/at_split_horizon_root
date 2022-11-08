@@ -9,7 +9,7 @@ import 'package:at_lookup/at_lookup.dart';
 import 'package:hive/hive.dart';
 
 void main() async {
-  final AtSignLogger _logger = AtSignLogger(' shr ');
+  final AtSignLogger logger = AtSignLogger(' shr ');
 
   var box = await Hive.openBox('rootBox', path: './');
 
@@ -18,7 +18,7 @@ void main() async {
   // re-load hiveDB if we see a SIGHUP
   ProcessSignal.sighup.watch().listen((signal) async {
     await loadBox(box);
-    _logger.info('reloadingbox');
+    logger.info('reloadingbox');
   });
 
   var secCon = SecurityContext();
@@ -39,7 +39,7 @@ void main() async {
         }
         var stuff = box.get(message.trim());
         if (stuff == null) {
-          connection.writeln(await rootLookup(message.trim(), _logger));
+          connection.writeln(await rootLookup(message.trim(), logger));
         } else {
           connection.writeln(stuff);
         }
@@ -52,11 +52,11 @@ void main() async {
   });
 }
 
-Future<String> rootLookup(String atsign, AtSignLogger _logger) async {
+Future<String> rootLookup(String atsign, AtSignLogger logger) async {
   var atLookupImpl = AtLookupImpl('', 'root.atsign.org', 64);
   SecondaryAddress secondaryAddress;
   SecondaryAddressFinder secondaryAddressFinder;
-  _logger.info('Lookup for: $atsign');
+  logger.info('Lookup for: $atsign');
   try {
     secondaryAddressFinder = atLookupImpl.secondaryAddressFinder;
 
@@ -80,7 +80,7 @@ Future<void> loadBox(Box box) async {
     }
   } catch (e) {
     print(e.toString());
-    print('Format error in atsigns file');
+    print('Format error in atServers file');
     await box.close();
     exit(-1);
   }
