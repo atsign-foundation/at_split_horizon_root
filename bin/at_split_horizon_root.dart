@@ -1,12 +1,16 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:logging/src/level.dart';
 
-import 'package:at_commons/at_commons.dart';
+// @platform packages
+import 'package:at_utils/at_logger.dart';
 import 'package:at_lookup/at_lookup.dart';
 import 'package:hive/hive.dart';
 
 void main() async {
+  final AtSignLogger _logger = AtSignLogger(' shr ');
+
   var box = await Hive.openBox('rootBox', path: './');
 
   await loadBox(box);
@@ -14,7 +18,7 @@ void main() async {
   // re-load hiveDB if we see a SIGHUP
   ProcessSignal.sighup.watch().listen((signal) async {
     await loadBox(box);
-    print('reloadingbox');
+    _logger.info('reloadingbox');
   });
 
   var secCon = SecurityContext();
@@ -35,7 +39,7 @@ void main() async {
         }
         var stuff = box.get(message.trim());
         if (stuff == null) {
-          connection.writeln(await rootLookup(message.trim()));
+          connection.writeln(await rootLookup(message.trim(), _logger));
         } else {
           connection.writeln(stuff);
         }
@@ -48,11 +52,11 @@ void main() async {
   });
 }
 
-Future<String> rootLookup(String atsign) async {
+Future<String> rootLookup(String atsign, AtSignLogger _logger) async {
   var atLookupImpl = AtLookupImpl('', 'root.atsign.org', 64);
   SecondaryAddress secondaryAddress;
   SecondaryAddressFinder secondaryAddressFinder;
-  print(">$atsign<");
+  _logger.info('Lookup for: $atsign');
   try {
     secondaryAddressFinder = atLookupImpl.secondaryAddressFinder;
 
@@ -64,9 +68,6 @@ Future<String> rootLookup(String atsign) async {
   return ('${secondaryAddress.host}:${secondaryAddress.port}');
 }
 
-/// TODO  Catch SIGHUP and reload DB for updates to file
-/// Find out why we need dummy data else the first put does not work ??
-///
 Future<void> loadBox(Box box) async {
   await box.clear();
   File file = File('./atServers');
