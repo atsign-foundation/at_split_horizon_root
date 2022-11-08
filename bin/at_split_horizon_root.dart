@@ -100,7 +100,7 @@ void main(List<String> args) async {
           atExit = true;
         }
         if(atExit){
-          logger.info('client sent @exit');
+          logger.info(' client sent @exit');
         }else{
         var stuff = box.get(atsign);
         if (stuff == null) {
@@ -112,7 +112,7 @@ void main(List<String> args) async {
         var send = utf8.encode("@");
         connection.add(send);
       }}, onError: (error) {
-        logger.severe('Error on port ${port.toString()}');
+        logger.severe(' Error on port ${port.toString()}');
         logger.severe(error.toString());
       });
     });
