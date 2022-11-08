@@ -94,7 +94,7 @@ void main(List<String> args) async {
       connection.listen((Uint8List data) async {
         final message = utf8.decode(data);
         String atsign = message.trim();
-        if (atsign == '' || atsign.length > 255) {
+        if (atsign == '' || atsign == '@exit' || atsign.length > 255 ) {
           connection.destroy();
         }
         var stuff = box.get(atsign);
