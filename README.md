@@ -51,7 +51,7 @@ colin cally.lan:6464
 kevin cally.lan:6465
 ```
 
-This would allow shrd to give the answer 'cally.lan:6464' to a lookup of 'colin' note the leading @ in the atSign is not needed in the configuration file. Also not comments can be put in this file with a '#` at the start of a line.
+This would allow shrd to give the answer 'cally.lan:6464' to a lookup of 'colin' note the leading @ in the atSign is not needed in the configuration file. Also note comments can be put in this file with a '#` at the start of a line.
 
 ### Updating the atServers file whilst shrd is running
 
