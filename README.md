@@ -1,6 +1,6 @@
 <img width=250px src="https://atsign.dev/assets/img/atPlatform_logo_gray.svg?sanitize=true">
 
-# atSplitHorizonRoot aka shrd
+# at_Split_Horizon_Root aka shrd
 
 TLDR;
 Some times you might want to runn your own atDirectory (root server), perhaps your network is not connected to the Internet or maybe Internet access is not always available.
