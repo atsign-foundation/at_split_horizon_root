@@ -93,10 +93,15 @@ void main(List<String> args) async {
       connection.add(send);
       connection.listen((Uint8List data) async {
         final message = utf8.decode(data);
+        bool atExit = false;
         String atsign = message.trim();
-        if (atsign == '' || atsign == '@exit' || atsign.length > 255 ) {
+        if (atsign == '' || atsign == '@exit' || atsign.length > 255) {
           connection.destroy();
+          atExit = true;
         }
+        if(atExit){
+          logger.info('client sent @exit');
+        }else{
         var stuff = box.get(atsign);
         if (stuff == null) {
           connection.writeln(await rootLookup(atsign, logger));
@@ -106,7 +111,7 @@ void main(List<String> args) async {
         }
         var send = utf8.encode("@");
         connection.add(send);
-      }, onError: (error) {
+      }}, onError: (error) {
         logger.severe('Error on port ${port.toString()}');
         logger.severe(error.toString());
       });
