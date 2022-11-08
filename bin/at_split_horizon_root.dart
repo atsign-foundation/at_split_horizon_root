@@ -77,8 +77,13 @@ void main(List<String> args) async {
   });
 
   var secCon = SecurityContext();
-  secCon.useCertificateChain(fullChain);
-  secCon.usePrivateKey(privKey);
+  try {
+    secCon.useCertificateChain(fullChain);
+    secCon.usePrivateKey(privKey);
+  } catch (e) {
+    logger.severe(' Error with SSL Certificates');
+    exit(1);
+  }
 
   await SecureServerSocket.bind(InternetAddress.anyIPv4, 64, secCon,
           requestClientCertificate: false)
@@ -102,7 +107,8 @@ void main(List<String> args) async {
         var send = utf8.encode("@");
         connection.add(send);
       }, onError: (error) {
-        print(error.toString());
+        logger.severe('Error on port ${port.toString()}');
+        logger.severe(error.toString());
       });
     });
   });
