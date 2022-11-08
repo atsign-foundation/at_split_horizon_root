@@ -26,7 +26,7 @@ Run the daemon binary file or the dart file:
 ./shrd <args|flags>
 ```
 ```sh
-dart run bin/sshnpd.dart <args|flags>
+dart run bin/at_split_horizon_root.dart <args|flags>
 ```
 
 | Argument        | Abbreviation | Mandatory | Description                                                                         |    Default    |
@@ -40,6 +40,22 @@ dart run bin/sshnpd.dart <args|flags>
 |---------------------|--------------|---------------------------------------------------------------------------------|
 | --[no-]verbose      | -v           | More logging                                                                    |
 
+### Configuration file atServers
+
+The 'atServers' file should contain the atSigns and your networks resolver name of the atServer for the atSign. Use of local DNS or host files is very important as TLS will need to verify the atServers and shrd certificates match the resolved network name. 
+
+For example the atServers file might contain 
+
+```
+colin cally.lan:6464
+kevin cally.lan:6465
+```
+
+This would allow shrd to give the answer 'cally.lan:6464' to a lookup of 'colin' note the leading @ in the atSign is not needed in the configuration file. Also not comments can be put in this file with a '#` at the start of a line.
+
+### Updating the atServers file whilst shrd is running
+
+The shrd daemon will respond to a 'kill -SIGHUP' by re-reading the configuration file, this allows new atSigns to be added or reoved without taking down the server. Note however that the whole database is first cleared before updating so for a brief period of time 'null' maybe returned for a valid lookup. This may be addressed in updates, please raise an issue if this causes you concern or problems.
 
 ## Who is this tool for?
 
