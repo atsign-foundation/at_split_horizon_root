@@ -10,9 +10,7 @@ import 'package:at_utils/at_logger.dart';
 import 'package:at_lookup/at_lookup.dart';
 import 'package:hive/hive.dart';
 
-// Local packages
-import 'package:at_split_horizon_root/home_directory.dart';
-import 'package:at_split_horizon_root/check_file_exists.dart';
+
 
 void main(List<String> args) async {
   int port = 64;

@@ -1,4 +1,7 @@
+# Format
+# <atSign> <Internal Network FQDN>:<PORT>
+# For examples see below
 colin   cally.lan:6464
 kevin   cally.lan:6465
-barbaracally.lan:6466               
+barbara cally.lan:6466               
 denise cally.lan:6467
