@@ -40,6 +40,13 @@ dart run bin/at_split_horizon_root.dart <args|flags>
 |---------------------|--------------|---------------------------------------------------------------------------------|
 | --[no-]verbose      | -v           | More logging                                                                    |
 
+### shrd in Docker
+The latest version of the docker image can be found at `atsigncompany/shrd:latest` on dockerhub.com. Usage is simple enough as well. For example
+
+`docker run -it  -v <directory conatiuning files>:/atsign/shrd -p 64:64  atsigncompany/shrd -v`
+
+This will run shrd and use the .pem files and the atServers file in the specified directory and expose port 64 and then finally log connections/lookups made by clients.
+
 ### Configuration file atServers
 
 The 'atServers' file should contain the atSigns and your networks resolver name of the atServer for the atSign. Use of local DNS or host files is very important as TLS will need to verify the atServers and shrd certificates match the resolved network name. 
