@@ -83,7 +83,7 @@ void main(List<String> args) async {
     exit(1);
   }
 
-  await SecureServerSocket.bind(InternetAddress.anyIPv4, 64, secCon,
+  await SecureServerSocket.bind(InternetAddress.anyIPv4, port, secCon,
           requestClientCertificate: false)
       .then((SecureServerSocket secSocket) {
     secSocket.listen((connection) {
