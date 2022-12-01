@@ -17,7 +17,7 @@ void main(List<String> args) async {
   String atServers = 'atServers';
   String fullChain = 'fullchain.pem';
   String privKey = 'privkey.pem';
-  final AtSignLogger logger = AtSignLogger(' shr ');
+  final AtSignLogger logger = AtSignLogger(' shrd ');
 
   // Have an argumnent :-)
   var parser = ArgParser();
