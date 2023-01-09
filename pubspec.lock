@@ -36,20 +36,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.10.0"
+  at_chops:
+    dependency: transitive
+    description:
+      name: at_chops
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   at_commons:
     dependency: "direct main"
     description:
       name: at_commons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.32"
+    version: "3.0.34"
   at_lookup:
     dependency: "direct main"
     description:
       name: at_lookup
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.33"
+    version: "3.0.35"
   at_utils:
     dependency: "direct main"
     description:
@@ -64,6 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  clock:
+    dependency: transitive
+    description:
+      name: clock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   collection:
     dependency: transitive
     description:
@@ -99,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  encrypt:
+    dependency: transitive
+    description:
+      name: encrypt
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.1"
   file:
     dependency: transitive
     description:
@@ -394,4 +415,4 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.2 <3.0.0"
+  dart: ">=2.18.3 <3.0.0"
