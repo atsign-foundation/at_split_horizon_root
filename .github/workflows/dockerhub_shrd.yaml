@@ -61,10 +61,10 @@ jobs:
           provenance: version=v1,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-        platforms: |
-         linux/amd64
-         linux/arm64/v8
-         linux/arm/v7
+          platforms: |
+            linux/amd64
+            linux/arm64/v8
+            linux/arm/v7
 
       - name: Sign the images with GitHub OIDC Token
         env:
