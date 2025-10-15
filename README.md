@@ -115,7 +115,7 @@ These can be verified using the
 [slsa-verifier](https://github.com/slsa-framework/slsa-verifier) tool e.g.:
 
 ```sh
-IMAGE="atsigncompany/at_shrd:latest"
+IMAGE="atsigncompany/shrd:latest"
 SHA=$(docker buildx imagetools inspect ${IMAGE} \
   --format "{{json .Manifest}}" | jq -r .digest)
 slsa-verifier verify-image ${IMAGE}@${SHA} \
